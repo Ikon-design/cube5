@@ -1,2 +1,49 @@
 services:
-  
+  web:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - web:/usr/share/nginx/
+      - nginxconf:/etc/nginx/conf.d/
+  php:
+    container_name: php
+    image: php:7.2-fpm
+    volumes:
+      - web:/script:ro
+  database:
+    container_name: database
+    image: mariadb:latest
+    volumes:
+      - database:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=videgrenier
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+
+volumes:
+  web:
+    driver: local
+    driver_opts:
+      device: ./www
+      o: bind
+      type: none
+  nginxconf:
+    driver: local
+    driver_opts:
+      device: ./nginx
+      o: bind
+      type: none
+  php:
+    driver: local
+    driver_opts:
+      device: ./php
+      o: bind
+      type: none
+  database:
+    driver: local
+    driver_opts:
+      device: ./database
+      o: bind
+      type: none

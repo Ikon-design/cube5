@@ -18,15 +18,15 @@ Ajout:
 
 
 Taches:
-Créer un repository pour y mettre le code de l’application.
-Mettre en place (utiliser) un système de gestion des issues et répartir ces taches entre les membres des votre équipe
-Travailler en mode «GitFlow»Concevoir un environnement de développement basé sur Docker(serveur Web + Base de données)
-Apporter les corrections au site Internet
-Créer les test unitaires de l’application
-Utiliser le merge request pour pousser le code de la branche «stage» (ou recette) versla branche «master» (ou main)
-Concevoir un environnement de pré-productionbasé sur Docker en respectant l’architecture suivante:
-	o Un Container pour la base de données en persistente
-	o Un Container pour le service Web avec récupération du dépôt GIT branche «Stage» (ou recette)
-Concevoir un environnement de production basé sur Docker en respectant l’architecture suivante:
-	oUn Container pour la base de données en persistenteoUn Container pour le service Web avec le code de la branche «master»(ou main)déjà présent dans l’image Docker
-Utiliser un système de génération documentaire pour le code API
+Créer un repository pour y mettre le code de l’application. <br>
+Mettre en place (utiliser) un système de gestion des issues et répartir ces taches entre les membres des votre équipe <br>
+Travailler en mode «GitFlow»Concevoir un environnement de développement basé sur Docker(serveur Web + Base de données) <br>
+Apporter les corrections au site Internet <br>
+Créer les test unitaires de l’application <br>
+Utiliser le merge request pour pousser le code de la branche «stage» (ou recette) versla branche «master» (ou main) <br>
+Concevoir un environnement de pré-productionbasé sur Docker en respectant l’architecture suivante: <br>
+	o Un Container pour la base de données en persistente <br>
+	o Un Container pour le service Web avec récupération du dépôt GIT branche «Stage» (ou recette) <br>
+Concevoir un environnement de production basé sur Docker en respectant l’architecture suivante: <br>
+	oUn Container pour la base de données en persistenteoUn Container pour le service Web avec le code de la branche «master»(ou main)déjà présent dans l’image Docker <br>
+Utiliser un système de génération documentaire pour le code API <br>

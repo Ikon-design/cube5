@@ -17,7 +17,7 @@ Ajout:
 * Favicon
 
 
-Taches:
+Taches:  <br>
 Créer un repository pour y mettre le code de l’application. <br>
 Mettre en place (utiliser) un système de gestion des issues et répartir ces taches entre les membres des votre équipe <br>
 Travailler en mode «GitFlow»Concevoir un environnement de développement basé sur Docker(serveur Web + Base de données) <br>

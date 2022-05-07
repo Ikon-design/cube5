@@ -33,8 +33,8 @@ Taches:  <br>
 
 Script sh :
 
-git clone git@github.com:Ikon-design/cube5.git
-cp -r cube5/. .
-rm -rf cube5
-docker compose up -d
-docker exec cube5-www-1 php /usr/local/bin/composer install
+git clone git@github.com:Ikon-design/cube5.git <br>
+cp -r cube5/. . <br>
+rm -rf cube5 <br>
+docker compose up -d <br>
+docker exec cube5-www-1 php /usr/local/bin/composer install <br>

@@ -30,3 +30,11 @@ Taches:  <br>
 Concevoir un environnement de production basé sur Docker en respectant l’architecture suivante: <br>
 	oUn Container pour la base de données en persistenteoUn Container pour le service Web avec le code de la branche «master»(ou main)déjà présent dans l’image Docker <br>
 Utiliser un système de génération documentaire pour le code API <br>
+
+Script sh :
+
+git clone git@github.com:Ikon-design/cube5.git
+cp -r cube5/. .
+rm -rf cube5
+docker compose up -d
+docker exec cube5-www-1 php /usr/local/bin/composer install

@@ -41,8 +41,34 @@ class User extends Model {
 
         $stmt->bindParam(':email', $login);
         $stmt->execute();
-
         return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public static function getById($id)
+    {
+        $db = static::getDB();
+
+        $stmt = $db->prepare("
+            SELECT * FROM users WHERE ( users.id = :id) LIMIT 1
+        ");
+
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public static function countUser()
+    {
+        $db = static::getDB();
+
+        $stmt = $db->prepare("
+            SELECT * FROM users WHERE ( users.is_admin = :is_admin) 
+        ");
+
+        $id_admin = "0";
+        $stmt->bindParam(':is_admin', $id_admin);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 

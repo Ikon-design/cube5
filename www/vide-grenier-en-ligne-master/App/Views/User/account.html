@@ -68,6 +68,27 @@
                                 {% endfor %}
                             </div>
                         </div>
+                        <h3>Réponses à vos annonces</h3>
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">Lien Article</th>
+                                <th scope="col">Mail</th>
+                                <th scope="col">Message</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {% for message in messages %}
+                                <tr>
+                                    <td> <a href="/product/{{ message.id_article }}">Article</a></td>
+                                    <td><a href="mailto:{{ message.email }}">{{ message.email }}</a></td>
+                                    <td>{{ message.messages }}</td>
+                                  </tr>
+                                {% endfor %}
+                            </tbody>
+                          </table>
+
+
                     </div>
                     <!-- /Featured Videos -->
                 </div>

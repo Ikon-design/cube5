@@ -33,6 +33,7 @@ class Product extends \Core\Controller
                         $f[$key] = htmlspecialchars($value);
                     }
                     
+
                     // TODO: Validation
                     
                     $f['user_id'] = $_SESSION['user']['id'];

@@ -26,7 +26,14 @@ class Product extends \Core\Controller
 
 
                 try {
-                    $f = $_POST;    
+                    $f = [];
+                    foreach ($_POST as $key => $value) {
+                        $value = trim($value);
+                        $value = stripslashes($value);
+                        $f[$key] = htmlspecialchars($value);
+                    }
+                    
+
                     // TODO: Validation
                     
                     $f['user_id'] = $_SESSION['user']['id'];
@@ -69,6 +76,12 @@ class Product extends \Core\Controller
                     'id_receiver' => $article[0]['user_id']
                 ];
                 
+                foreach ($f as $key => $value) {
+                    $value = trim($value);
+                    $value = stripslashes($value);
+                    $f[$key] = htmlspecialchars($value);
+                }
+
                 Messages::createMessage($f);
             }else{
                 $error = 'Veuillez remplir tous les champs. (Bande de vilain hacker c\'est pas bien de modifier le code source)';

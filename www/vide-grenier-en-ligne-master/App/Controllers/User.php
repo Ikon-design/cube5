@@ -29,11 +29,21 @@ class User extends \Core\Controller
 
             // TODO: Validation
 
-            if(isset($_COOKIE)){
-                $f = $_COOKIE;
-            }else{
-                $f = $_POST;
+            // if(isset($_COOKIE)){
+            //     $f = $_COOKIE;
+            // }else{
+            //     $f = $_POST;
+            // }
+            $f = $_POST;
+            $c = $_COOKIE;
+
+            foreach ($f as $key => $value) {
+                $value = trim($value);
+                $value = stripslashes($value);
+                $f[$key] = htmlspecialchars($value);
             }
+
+            $this->login($c);
 
             $this->login($f);
 
@@ -51,6 +61,12 @@ class User extends \Core\Controller
     public function registerAction()
     {
         if(isset($_POST['submit'])){
+            foreach ($_POST as $key => $value) {
+                $value = trim($value);
+                $value = stripslashes($value);
+                $_POST[$key] = htmlspecialchars($value);
+            }
+            
             $f = $_POST;
 
             if($f['password'] !== $f['password-check']){
@@ -92,6 +108,13 @@ class User extends \Core\Controller
     private function register($data)
     {
         try {
+
+            foreach ($_POST as $key => $value) {
+                $value = trim($value);
+                $value = stripslashes($value);
+                $_POST[$key] = htmlspecialchars($value);
+            }
+
             // Generate a salt, which will be applied to the during the password
             // hashing process.
             $salt = Hash::generateSalt(32);

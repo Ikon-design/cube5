@@ -38,7 +38,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="e2">Ville</label>
-                                    <input class="form-control cityAutoComplete" type="text" autocomplete="off" required/>
+                                    <input name="city" class="form-control cityAutoComplete" type="text" autocomplete="off" required/>
                                 </div>
                             </div>
 
@@ -52,6 +52,13 @@
                     </div>
 
                     <div class="u-area mt-small">
+                        {% if errorMessage is not null  %}
+                            {% if errorMessage != ''  %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ errorMessage }}
+                            </div>
+                            {% endif %}
+                        {% endif %}
                         <form action="#" method="post">
                             <button name="submit" class="btn btn-primary u-btn">Valider</button>
                         </form>

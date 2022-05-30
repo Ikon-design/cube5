@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Config;
 use App\Model\UserRegister;
+use App\Models\Messages;
 use App\Models\Articles;
 use App\Utility\Hash;
 use App\Utility\Session;
@@ -23,12 +24,19 @@ class User extends \Core\Controller
      */
     public function loginAction()
     {
+
         if(isset($_POST['submit'])){
-            $f = $_POST;
 
             // TODO: Validation
 
+            if(isset($_COOKIE)){
+                $f = $_COOKIE;
+            }else{
+                $f = $_POST;
+            }
+
             $this->login($f);
+
 
             // Si login OK, redirige vers le compte
             header('Location: /account');
@@ -52,6 +60,11 @@ class User extends \Core\Controller
             // validation
 
             $this->register($f);
+
+            $this->login($f);
+
+            // Si login OK, redirige vers le compte
+            header('Location: /account');
             // TODO: Rappeler la fonction de login pour connecter l'utilisateur
         }
 
@@ -62,11 +75,14 @@ class User extends \Core\Controller
      * Affiche la page du compte
      */
     public function accountAction()
-    {
+    {   
+        $data['id'] = $_SESSION['user']['id'];
         $articles = Articles::getByUser($_SESSION['user']['id']);
+        $messages = Messages::getByUser($data);
 
         View::renderTemplate('User/account.html', [
-            'articles' => $articles
+            'articles' => $articles,
+            'messages' => $messages
         ]);
     }
 
@@ -102,7 +118,7 @@ class User extends \Core\Controller
             }
 
             $user = \App\Models\User::getByLogin($data['email']);
-
+            
             if (Hash::generate($data['password'], $user['salt']) !== $user['password']) {
                 return false;
             }
@@ -115,6 +131,11 @@ class User extends \Core\Controller
                 'id' => $user['id'],
                 'username' => $user['username'],
             );
+
+            if($_POST['#'] == "on"){
+                setcookie('email',$_POST['email'],time()+365*24*3600,null,null,false,true);
+                setcookie('password',$_POST['password'],time()+365*24*3600,null,null,false,true);
+            }
 
             return true;
 

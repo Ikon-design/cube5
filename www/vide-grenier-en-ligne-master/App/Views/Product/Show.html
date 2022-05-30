@@ -38,9 +38,15 @@
                     </div>
                     <div class="u-area mt-small">
 
-                    <a name="submit" href="mailto:{{article.email}}" class="btn btn-primary u-btn">Contacter {{article
-                        .username}}</a>
+                    <!-- <a name="submit" href="mailto:{{article.email}}" class="btn btn-primary u-btn">Contacter {{article
+                        .username}}</a> -->
 
+                        <h3>Contacter l'annonceur</h3>
+                        <form action="" method="post">
+                            <input name="mail" type="email" placeholder="E-mail">
+                            <textarea name="message" placeholder="Message"></textarea>
+                            <input type="submit" name="submit" value="Envoyer">
+                        </form>
                     </div>
                 </div>
             </div>

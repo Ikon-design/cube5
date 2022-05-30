@@ -41,6 +41,7 @@ abstract class Controller
      */
     public function __call($name, $args)
     {
+        
         $method = $name . 'Action';
 
         if (method_exists($this, $method)) {

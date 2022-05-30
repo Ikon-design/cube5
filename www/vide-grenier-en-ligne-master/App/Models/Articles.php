@@ -40,6 +40,16 @@ class Articles extends Model {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public static function getAllCount() {
+        $db = static::getDB();
+
+        $query = 'SELECT * FROM articles ';
+
+        $stmt = $db->query($query);
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     /**
      * ?
      * @access public

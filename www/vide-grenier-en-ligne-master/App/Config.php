@@ -26,13 +26,15 @@ class Config
      * Database user
      * @var string
      */
-    const DB_USER = 'webapplication';
+    // const DB_USER = 'webapplication';
+    const DB_USER = 'test';
 
     /**
      * Database password
      * @var string
      */
-    const DB_PASSWORD = '653rag9T';
+    // const DB_PASSWORD = '653rag9T';
+    const DB_PASSWORD = 'test';
 
     /**
      * Show or hide error messages on screen

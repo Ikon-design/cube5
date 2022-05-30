@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Articles;
+use App\Models\Messages;
 use App\Utility\Upload;
 use \Core\View;
 
@@ -50,14 +51,26 @@ class Product extends \Core\Controller
     {
         $id = $this->route_params['id'];
 
+        if(isset($_POST['submit'])){
+            $article = Articles::getOne($id);
+            $f = [
+                'mail' => $_POST['mail'],
+                'id_article' => $id,
+                'message' => $_POST['message'],
+                'id_receiver' => $article[0]['user_id']
+            ];
+            
+            Messages::createMessage($f);
+        }
+        
         try {
             Articles::addOneView($id);
             $suggestions = Articles::getSuggest();
             $article = Articles::getOne($id);
         } catch(\Exception $e){
             var_dump($e);
-        }
-
+        } 
+        
         View::renderTemplate('Product/Show.html', [
             'article' => $article[0],
             'suggestions' => $suggestions

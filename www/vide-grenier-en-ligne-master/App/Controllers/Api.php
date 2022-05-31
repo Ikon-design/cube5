@@ -23,7 +23,7 @@ class Api extends \Core\Controller
         $query = $_GET['sort'];
 
         $articles = Articles::getAll($query);
-
+        
         header('Content-Type: application/json');
         echo json_encode($articles);
     }

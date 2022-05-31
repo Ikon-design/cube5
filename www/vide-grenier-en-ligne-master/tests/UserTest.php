@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
-    public function testcreateUser()
+    public function testCreateUser()
     {
         $data = [
             'username' => 'testeuh',
@@ -14,17 +14,16 @@ class UserTest extends TestCase
             'salt' => 'test'
         ];
         $id = User::createUser($data);
-        $this->assertNotEmpty($data['username'], $data['email'], $data['password'], $data['salt']);
+        $this->assertNotEmpty($id);
 
         return $id;
     }
 
     /**
-     * @depends testcreateUser
+     * @depends testCreateUser
      */
-    public function clearUser($id)
+    public function testClearUser($id)
     {
-        var_dump($id);
         $id = User::deleteUser($id);
         $this->assertNotEmpty($id['id']);
 

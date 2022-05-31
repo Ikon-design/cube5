@@ -1,4 +1,3 @@
-
 <?php
 
 /**
@@ -7,7 +6,7 @@
  * PHP version 7.0
  */
 
-//session_start();
+session_start();
 
 /**
  * Composer

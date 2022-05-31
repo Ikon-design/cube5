@@ -31,6 +31,7 @@ class Home extends \Core\Controller
      */
     public function adminAction()
     {
+        mail("antoine27bigot@gmail.com","My subject","Test that the email was sent");
 
         $user = \App\Models\User::getById($_SESSION['user']['id']);
         if($user['is_admin'] !== "1"){

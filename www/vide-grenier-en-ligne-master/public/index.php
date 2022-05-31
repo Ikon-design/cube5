@@ -8,6 +8,13 @@
 
 session_start();
 
+if(isset($_SESSION['ip'])){
+    session_destroy();
+}else{
+    $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
+
+}
+
 /**
  * Composer
  */

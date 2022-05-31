@@ -88,5 +88,15 @@ class User extends Model {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public static function deleteUser($id)
+    {
+        $db = static::getDB();
+        $stmt = $db->prepare('DELETE FROM users WHERE id = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        return;
+    } 
+
 
 }

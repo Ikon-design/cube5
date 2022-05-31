@@ -80,4 +80,13 @@ class Messages extends Model {
         return $db->lastInsertId();
     }
 
+    public static function deleteOne($id) {
+        $db = static::getDB();
+        $stmt = $db->prepare('DELETE FROM messages WHERE id = :id');
+
+        $stmt->bindParam(':id', $id);
+
+        return $stmt->execute();
+    }
+
 }

@@ -14,7 +14,7 @@ class Config
      * Database host
      * @var string
      */
-    const DB_HOST = 'localhost';
+    const DB_HOST = 'db';
 
     /**
      * Database name
@@ -27,7 +27,7 @@ class Config
      * @var string
      */
     // const DB_USER = 'webapplication';
-    const DB_USER = 'test';
+    const DB_USER = 'user';
 
     /**
      * Database password

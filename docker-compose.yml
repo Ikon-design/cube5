@@ -1,49 +1,40 @@
 services:
-  web:
-    image: nginx:latest
-    ports:
-      - "80:80"
+  www:
+    container_name: web
+    build: .
+    ports: 
+        - "8001:80"
     volumes:
-      - web:/usr/share/nginx/
-      - nginxconf:/etc/nginx/conf.d/
-  php:
-    container_name: php
-    image: php:7.2-fpm
-    volumes:
-      - web:/script:ro
-  database:
-    container_name: database
-    image: mariadb:latest
-    volumes:
-      - database:/var/lib/mysql
+        - /Users/clement/Desktop/cube5good/cube5/www/vide-grenier-en-ligne-master:/var/www/html/
+    networks:
+        - default
+    links:
+        - db
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=videgrenier
-      - MYSQL_USER=test
-      - MYSQL_PASSWORD=test
-
-volumes:
-  web:
-    driver: local
-    driver_opts:
-      device: ./www
-      o: bind
-      type: none
-  nginxconf:
-    driver: local
-    driver_opts:
-      device: ./nginx
-      o: bind
-      type: none
-  php:
-    driver: local
-    driver_opts:
-      device: ./php
-      o: bind
-      type: none
-  database:
-    driver: local
-    driver_opts:
-      device: ./database
-      o: bind
-      type: none
+        - ENVARIABLE=dev
+  db:
+    container_name: db
+    image: mysql
+    ports: 
+        - "3306:3306"
+    environment:
+        MYSQL_DATABASE: videgrenierenligne
+        MYSQL_USER: user
+        MYSQL_PASSWORD: test
+        MYSQL_ROOT_PASSWORD: test
+    volumes:
+        - /Users/clement/Desktop/cube5good/cube5/www/vide-grenier-en-ligne-master/sql:/docker-entrypoint-initdb.d
+       # - persistent:/var/lib/mysql
+    networks:
+        - default
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    links: 
+        - db:db
+    ports:
+        - 8000:80
+    environment:
+        MYSQL_USER: user
+        MYSQL_PASSWORD: test
+        MYSQL_ROOT_PASSWORD: test

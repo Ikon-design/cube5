@@ -20,10 +20,9 @@ class Articles extends Model {
      * @throws Exception
      */
     public static function getAll($filter) {
+
         $db = static::getDB();
-
         $query = 'SELECT * FROM articles ';
-
         switch ($filter){
             case 'views':
                 $query .= ' ORDER BY articles.views DESC';
@@ -36,7 +35,6 @@ class Articles extends Model {
         }
 
         $stmt = $db->query($query);
-
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 

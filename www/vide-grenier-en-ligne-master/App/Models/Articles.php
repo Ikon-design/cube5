@@ -157,9 +157,18 @@ class Articles extends Model {
         $stmt->bindParam(':articleid', $articleId);
 
 
-        $stmt->execute();
+        return $stmt->execute();
     }
 
+    public static function deleteOne($id){
+        $db = static::getDB();
+
+        $stmt = $db->prepare('DELETE FROM articles WHERE articles.id = :id');
+
+        $stmt->bindParam(':id', $id);
+
+        return $stmt->execute();
+    }
 
 
 

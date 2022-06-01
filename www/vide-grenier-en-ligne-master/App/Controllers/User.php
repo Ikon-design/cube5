@@ -47,7 +47,9 @@ class User extends \Core\Controller
 
             $this->login($f);
 
+            // Si login OK, envoie un mail de confirmation
 
+            
             // Si login OK, redirige vers le compte
             header('Location: /account');
         }
@@ -159,6 +161,13 @@ class User extends \Core\Controller
                 setcookie('email',$_POST['email'],time()+365*24*3600,null,null,false,true);
                 setcookie('password',$_POST['password'],time()+365*24*3600,null,null,false,true);
             }
+
+            include('Mail.php');
+
+            $s = "Urgent";
+            $m = "Qqn s'est connecté sur votre compte";
+            $e = "proalexandreboyere@gmail.com";
+            sendmail($s, $m, $e);
 
             return true;
 

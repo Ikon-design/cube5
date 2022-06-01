@@ -6,6 +6,7 @@ use App\Config;
 use App\Model\UserRegister;
 use App\Models\Messages;
 use App\Models\Articles;
+// use App\Models\User;
 use App\Utility\Hash;
 use App\Utility\Session;
 use \Core\View;
@@ -46,8 +47,8 @@ class User extends \Core\Controller
             $this->login($c);
 
             $this->login($f);
-
             $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
+
 
             // Si login OK, redirige vers le compte
             header('Location: /account');
@@ -72,17 +73,15 @@ class User extends \Core\Controller
 
             if($f['password'] !== $f['password-check']){
                 // TODO: Gestion d'erreur côté utilisateur
+            }else{
+                $this->register($f);
+
+                $this->login($f);
+    
+                // Si login OK, redirige vers le compte
+                header('Location: /account');
             }
 
-            // validation
-
-            $this->register($f);
-
-            $this->login($f);
-
-            // Si login OK, redirige vers le compte
-            header('Location: /account');
-            // TODO: Rappeler la fonction de login pour connecter l'utilisateur
         }
 
         View::renderTemplate('User/register.html');
@@ -97,10 +96,42 @@ class User extends \Core\Controller
         $articles = Articles::getByUser($_SESSION['user']['id']);
         $messages = Messages::getByUser($data);
 
+
         View::renderTemplate('User/account.html', [
             'articles' => $articles,
             'messages' => $messages
         ]);
+    }
+
+    public function editAction(){
+        $data['id'] = $_SESSION['user']['id'];
+
+
+        if(isset($_POST['submit'])){
+            foreach ($_POST as $key => $value) {
+                $value = trim($value);
+                $value = stripslashes($value);
+                $_POST[$key] = htmlspecialchars($value);
+            }
+            
+            $f = $_POST;
+            if($this->login($f)){
+                $this->edit($f, $data['id']);
+            }else{
+                header('Location: /login');
+
+            }
+
+            // Si login OK, redirige vers le compte
+            // TODO: Rappeler la fonction de login pour connecter l'utilisateur
+        }
+        $user = \App\Models\User::getById($_SESSION['user']['id']);
+
+        View::renderTemplate('User/edit.html', [
+            'username' => $user['username'],
+            'email' => $user['email'],
+        ]);
+
     }
 
     /*
@@ -125,6 +156,34 @@ class User extends \Core\Controller
                 "username" => $data['username'],
                 "password" => Hash::generate($data['password'], $salt),
                 "salt" => $salt
+            ]);
+
+            return $userID;
+
+        } catch (Exception $ex) {
+            // TODO : Set flash if error : utiliser la fonction en dessous
+            /* Utility\Flash::danger($ex->getMessage());*/
+        }
+    }
+
+
+    private function edit($data, $id)
+    {
+        try {
+
+            foreach ($_POST as $key => $value) {
+                $value = trim($value);
+                $value = stripslashes($value);
+                $_POST[$key] = htmlspecialchars($value);
+            }
+
+            // Generate a salt, which will be applied to the during the password
+            // hashing process.
+            $salt = Hash::generateSalt(32);
+            $userID = \App\Models\User::editUser([
+                "id" => $id,
+                "email" => $data['email'],
+                "username" => $data['username'],
             ]);
 
             return $userID;
@@ -202,5 +261,6 @@ class User extends \Core\Controller
 
         return true;
     }
+
 
 }

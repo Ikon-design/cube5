@@ -1,7 +1,8 @@
 services:
   www:
     container_name: web
-    build: .
+    #build: .
+    image: ikondesign/webpreprod
     ports: 
         - "8001:80"
     #volumes:

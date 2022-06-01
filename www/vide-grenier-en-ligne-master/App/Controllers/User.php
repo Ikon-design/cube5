@@ -47,6 +47,7 @@ class User extends \Core\Controller
 
             $this->login($f);
 
+            $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
 
             // Si login OK, redirige vers le compte
             header('Location: /account');

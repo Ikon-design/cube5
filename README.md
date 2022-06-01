@@ -39,3 +39,11 @@ cp -r cube5/. . <br>
 rm -rf cube5 <br>
 docker compose up -d <br>
 docker exec cube5-www-1 php /usr/local/bin/composer install <br>
+
+<h3> Script Preprod : </h3>
+
+mkdir cube-preprod
+cd cube-preprod
+git clone -b preprod https://github.com/Ikon-design/cube5.git
+cd cube5
+docker compose up -d --build

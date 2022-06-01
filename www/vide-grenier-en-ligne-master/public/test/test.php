@@ -5,9 +5,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require '../../../../vendor/PHPMailer/src/Exception.php';
-require '../../vendor/PHPMailer/src/PHPMailer.php';
-require '../../vendor/PHPMailer/src/SMTP.php';
+require '../../vendor/phpmailer/phpmailer/src/Exception.php';
+require '../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require '../../vendor/phpmailer/phpmailer/src/SMTP.php';
 
 //Load Composer's autoloader
 require '../../vendor/autoload.php';
@@ -24,14 +24,14 @@ function sendmail($s, $m, $e)
         $mail->isSMTP();                                            //Send using SMTP
         $mail->Host       = 'smtp-relay.gmail.com';                     //Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-        $mail->Username   = 'api.bot.cesi@gmail.com';                     //SMTP username
+        $mail->Username   = 'bot.cesi@gmail.com';                     //SMTP username
         $mail->Password   = 'rootroot';                               //SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
         $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
         //Recipients
-        $mail->setFrom('ne-pas-répondre@gmail.com', 'Mailer');
-        $mail->addAddress('api.bot.cesi@gmail.com', 'Joe User');     //Add a recipient
+        $mail->setFrom('bot.cesi@gmail.com', 'Mailer');
+        $mail->addAddress('bot.cesi@gmail.com', 'Joe User');     //Add a recipient
         //$mail->addAddress('ellen@example.com');               //Name is optional
         //$mail->addReplyTo('info@example.com', 'Information');
         //$mail->addCC('cc@example.com');

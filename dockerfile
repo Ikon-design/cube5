@@ -5,6 +5,7 @@ RUN a2enmod rewrite && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     apt-get update && \
     apt-get install -y --no-install-recommends p7zip-full && \
+
     apt-get install -y zip && \
     apt-get install -y git && \
     cd /var/www/html && \

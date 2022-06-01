@@ -5,5 +5,7 @@ RUN a2enmod rewrite && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     apt-get update && \
     apt-get install -y --no-install-recommends p7zip-full && \
-    apt-get install -y zip 
+    apt-get install -y zip && \
+    rm /etc/apache2/sites-enabled/000-default.conf && \
+    cp /var/www/html/cube5/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 #    php /usr/local/bin/composer install

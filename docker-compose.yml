@@ -1,7 +1,7 @@
 services:
   www:
     container_name: web
-    image: ikondesign/webprod
+    image: ikondesign/webprod:1
     ports: 
         - "8001:80"
     networks:

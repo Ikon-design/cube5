@@ -2,7 +2,7 @@
 
 include('test.php');
 
-$s = "Urgent";
-$m = "Qqn s'est connecté sur votre compte";
-$e = "proalexandreboyere@gmail.com";
-sendmail($s, $m, $e);
+$s = "Connection";
+$m = "Votre connection sur notre site s'est faite avec succes !";
+$em = "bot.cesi@gmail.com";
+sendmail($s, $m, $em);

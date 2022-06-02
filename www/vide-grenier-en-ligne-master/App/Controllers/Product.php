@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+include("Mail.php");
+
 use App\Models\Articles;
 use App\Models\Messages;
 use App\Utility\Upload;
@@ -12,7 +14,6 @@ use \Core\View;
  */
 class Product extends \Core\Controller
 {
-
     /**
      * Affiche la page d'ajout
      * @return void
@@ -21,8 +22,8 @@ class Product extends \Core\Controller
     {
         $error = '';
 
-        if(isset($_POST['submit'])) {
-            if(!empty($_POST['name']) && !empty($_POST['description']) && !empty($_POST['city']) && !empty($_FILES['picture'])){
+        if (isset($_POST['submit'])) {
+            if (!empty($_POST['name']) && !empty($_POST['description']) && !empty($_POST['city']) && !empty($_FILES['picture'])) {
 
 
                 try {
@@ -32,28 +33,27 @@ class Product extends \Core\Controller
                         $value = stripslashes($value);
                         $f[$key] = htmlspecialchars($value);
                     }
-                    
+
 
                     // TODO: Validation
-                    
-                    $f['user_id'] = $_SESSION['user']['id'];
+
+                    $f['user_id'] = $_SESSION['user']['id'];   
                     $id = Articles::save($f);
-                    
+
                     $pictureName = Upload::uploadFile($_FILES['picture'], $id);
-                    
+
                     Articles::attachPicture($id, $pictureName);
-                    
+
                     header('Location: /product/' . $id);
-                } catch (\Exception $e){
+                } catch (\Exception $e) {
                     var_dump($e);
                 }
-            }else{
+            } else {
                 $error = 'Veuillez remplir tous les champs. (Bande de vilain hacker c\'est pas bien de modifier le code source)';
             }
         }
 
         View::renderTemplate('Product/Add.html', array('errorMessage' => $error));
-
     }
 
     /**
@@ -65,9 +65,9 @@ class Product extends \Core\Controller
         $id = $this->route_params['id'];
         $error = '';
 
-        if(isset($_POST['submit'])){
-            if(!empty($_POST['mail']) && !empty($_POST['message'])){
-            
+        if (isset($_POST['submit'])) {
+            if (!empty($_POST['mail']) && !empty($_POST['message'])) {
+
                 $article = Articles::getOne($id);
                 $f = [
                     'mail' => $_POST['mail'],
@@ -75,27 +75,33 @@ class Product extends \Core\Controller
                     'message' => $_POST['message'],
                     'id_receiver' => $article[0]['user_id']
                 ];
-                
+
                 foreach ($f as $key => $value) {
                     $value = trim($value);
                     $value = stripslashes($value);
                     $f[$key] = htmlspecialchars($value);
                 }
 
+                // Si login OK, envoie un mail de confirmation
+                $s = "new message";
+                $m = "Vous avez recu un nouveau message !";
+                $em = $article[0]['email'];
+                sendmail($s, $m, $em);
+
                 Messages::createMessage($f);
-            }else{
+            } else {
                 $error = 'Veuillez remplir tous les champs. (Bande de vilain hacker c\'est pas bien de modifier le code source)';
             }
         }
-        
+
         try {
             Articles::addOneView($id);
             $suggestions = Articles::getSuggest();
             $article = Articles::getOne($id);
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             var_dump($e);
-        } 
-        
+        }
+
         View::renderTemplate('Product/Show.html', [
             'article' => $article[0],
             'suggestions' => $suggestions,

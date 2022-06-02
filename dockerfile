@@ -8,7 +8,7 @@ RUN a2enmod rewrite && \
     apt-get install -y zip && \
     apt-get install -y git && \
     cd /var/www/html && \
-    git clone -b testunits https://github.com/Ikon-design/cube5.git && \
+    git clone -b preprod https://github.com/Ikon-design/cube5.git && \
     cp -r cube5/www/vide-grenier-en-ligne-master/. . && \
     rm /etc/apache2/sites-enabled/000-default.conf && \
     cp /var/www/html/cube5/000-default.conf /etc/apache2/sites-enabled/000-default.conf && \

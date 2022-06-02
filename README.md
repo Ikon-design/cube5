@@ -46,4 +46,11 @@ mkdir cube-preprod <br>
 cd cube-preprod <br>
 git clone -b preprod https://github.com/Ikon-design/cube5.git <br>
 cd cube5 <br>
+mkdir persistent <br>
 docker compose up -d --build <br>
+rm -r www <br>
+rm 000-default.conf <br>
+rm docker-compose.yml <br>
+rm dockerfile <br>
+rm script.sh <br>
+rm README.md <br>

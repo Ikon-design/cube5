@@ -8,9 +8,10 @@
 
 session_start();
 
-if($_SESSION['ip'] !== $_SERVER['REMOTE_ADDR'] && isset($_SESSION['ip'])){
-    session_destroy();
-
+if (isset($_SESSION['ip'])) {
+    if ($_SESSION['ip'] !== $_SERVER['REMOTE_ADDR'] && isset($_SESSION['ip'])) {
+        session_destroy();
+    }
 }
 
 
@@ -24,9 +25,9 @@ require dirname(__DIR__) . '/vendor/autoload.php';
  * Error and Exception handling
  */
 
-$env_array = getenv ( ) ;
+$env_array = getenv();
 $env_array['ENVARIABLE'];
-if($env_array['ENVARIABLE'] == 'dev'){
+if ($env_array['ENVARIABLE'] == 'dev') {
     error_reporting(E_ALL);
     set_error_handler('Core\Error::errorHandler');
     set_exception_handler('Core\Error::exceptionHandler');
@@ -54,8 +55,8 @@ $router->add('{controller}/{action}');
  */
 try {
     $router->dispatch($_SERVER['QUERY_STRING']);
-} catch(Exception $e){
-    switch($e->getMessage()){
+} catch (Exception $e) {
+    switch ($e->getMessage()) {
         case 'You must be logged in':
             header('Location: /login');
             break;

@@ -5,7 +5,7 @@ services:
     ports: 
         - "8001:80"
     volumes:
-        - /Users/clement/Desktop/cube42/cube5:/var/www/html/
+        - /Users/clement/Desktop/cube-dev/cube5/www/vide-grenier-en-ligne-master/:/var/www/html/
     networks:
         - default
     links:
@@ -23,8 +23,8 @@ services:
         MYSQL_PASSWORD: test
         MYSQL_ROOT_PASSWORD: test
     volumes:
-        - /Users/clement/Desktop/cube42/cube5/www/vide-grenier-en-ligne-master/sql:/docker-entrypoint-initdb.d
-       # - persistent:/var/lib/mysql
+        - ./www/vide-grenier-en-ligne-master/sql:/docker-entrypoint-initdb.d
+       # - ./persistent:/var/lib/mysql
     networks:
         - default
   phpmyadmin:

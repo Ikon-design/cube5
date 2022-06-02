@@ -6,6 +6,6 @@ RUN a2enmod rewrite && \
     apt-get update && \
     apt-get install -y --no-install-recommends p7zip-full && \
     apt-get install -y zip && \
-    rm /etc/apache2/sites-enabled/000-default.conf && \
-    cp /var/www/html/cube5/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+    rm /etc/apache2/sites-available/000-default.conf 
+#   cp /var/www/html/cube5/000-default.conf /etc/apache2/sites-available/000-default.conf
 #    php /usr/local/bin/composer install

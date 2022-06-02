@@ -26,7 +26,7 @@ class User extends \Core\Controller
     public function loginAction()
     {
 
-        if(isset($_POST['submit'])){
+        if (isset($_POST['submit'])) {
 
             // TODO: Validation
 
@@ -49,7 +49,6 @@ class User extends \Core\Controller
             $this->login($f);
             $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
 
-
             // Si login OK, redirige vers le compte
             header('Location: /account');
         }
@@ -62,26 +61,25 @@ class User extends \Core\Controller
      */
     public function registerAction()
     {
-        if(isset($_POST['submit'])){
+        if (isset($_POST['submit'])) {
             foreach ($_POST as $key => $value) {
                 $value = trim($value);
                 $value = stripslashes($value);
                 $_POST[$key] = htmlspecialchars($value);
             }
-            
+
             $f = $_POST;
 
-            if($f['password'] !== $f['password-check']){
+            if ($f['password'] !== $f['password-check']) {
                 // TODO: Gestion d'erreur côté utilisateur
-            }else{
+            } else {
                 $this->register($f);
 
                 $this->login($f);
-    
+
                 // Si login OK, redirige vers le compte
                 header('Location: /account');
             }
-
         }
 
         View::renderTemplate('User/register.html');
@@ -91,7 +89,7 @@ class User extends \Core\Controller
      * Affiche la page du compte
      */
     public function accountAction()
-    {   
+    {
         $data['id'] = $_SESSION['user']['id'];
         $articles = Articles::getByUser($_SESSION['user']['id']);
         $messages = Messages::getByUser($data);
@@ -103,23 +101,23 @@ class User extends \Core\Controller
         ]);
     }
 
-    public function editAction(){
+    public function editAction()
+    {
         $data['id'] = $_SESSION['user']['id'];
 
 
-        if(isset($_POST['submit'])){
+        if (isset($_POST['submit'])) {
             foreach ($_POST as $key => $value) {
                 $value = trim($value);
                 $value = stripslashes($value);
                 $_POST[$key] = htmlspecialchars($value);
             }
-            
-            $f = $_POST;
-            if($this->login($f)){
-                $this->edit($f, $data['id']);
-            }else{
-                header('Location: /login');
 
+            $f = $_POST;
+            if ($this->login($f)) {
+                $this->edit($f, $data['id']);
+            } else {
+                header('Location: /login');
             }
 
             // Si login OK, redirige vers le compte
@@ -131,7 +129,6 @@ class User extends \Core\Controller
             'username' => $user['username'],
             'email' => $user['email'],
         ]);
-
     }
 
     /*
@@ -159,7 +156,6 @@ class User extends \Core\Controller
             ]);
 
             return $userID;
-
         } catch (Exception $ex) {
             // TODO : Set flash if error : utiliser la fonction en dessous
             /* Utility\Flash::danger($ex->getMessage());*/
@@ -187,21 +183,21 @@ class User extends \Core\Controller
             ]);
 
             return $userID;
-
         } catch (Exception $ex) {
             // TODO : Set flash if error : utiliser la fonction en dessous
             /* Utility\Flash::danger($ex->getMessage());*/
         }
     }
 
-    private function login($data){
+    private function login($data)
+    {
         try {
-            if(!isset($data['email'])){
+            if (!isset($data['email'])) {
                 throw new Exception('TODO');
             }
 
             $user = \App\Models\User::getByLogin($data['email']);
-            
+
             if (Hash::generate($data['password'], $user['salt']) !== $user['password']) {
                 return false;
             }
@@ -215,13 +211,12 @@ class User extends \Core\Controller
                 'username' => $user['username'],
             );
 
-            if($_POST['#'] == "on"){
-                setcookie('email',$_POST['email'],time()+365*24*3600,null,null,false,true);
-                setcookie('password',$_POST['password'],time()+365*24*3600,null,null,false,true);
+            if ($_POST['#'] == "on") {
+                setcookie('email', $_POST['email'], time() + 365 * 24 * 3600, null, null, false, true);
+                setcookie('password', $_POST['password'], time() + 365 * 24 * 3600, null, null, false, true);
             }
 
             return true;
-
         } catch (Exception $ex) {
             // TODO : Set flash if error
             /* Utility\Flash::danger($ex->getMessage());*/
@@ -236,7 +231,8 @@ class User extends \Core\Controller
      * @return boolean
      * @since 1.0.2
      */
-    public function logoutAction() {
+    public function logoutAction()
+    {
 
         /*
         if (isset($_COOKIE[$cookie])){
@@ -249,18 +245,21 @@ class User extends \Core\Controller
 
         if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
-            setcookie(session_name(), '', time() - 42000,
-                $params["path"], $params["domain"],
-                $params["secure"], $params["httponly"]
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000,
+                $params["path"],
+                $params["domain"],
+                $params["secure"],
+                $params["httponly"]
             );
         }
 
         session_destroy();
 
-        header ("Location: /");
+        header("Location: /");
 
         return true;
     }
-
-
 }

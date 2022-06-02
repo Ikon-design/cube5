@@ -2,7 +2,10 @@
     "require": {
         "twig/twig": "~3.0",
       "ext-pdo": "*",
-      "ext-json": "*"
+      "ext-json": "*",
+        "zircote/swagger-php": "^4.4",
+        "doctrine/annotations": "^1.13",
+        "phpmailer/phpmailer": "^6.6"
     },
     "autoload": {
         "psr-4": {

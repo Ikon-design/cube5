@@ -34,11 +34,15 @@ On va le dégommer ce cube
 
 <h3> Script sh : </h3>
 
-git clone git@github.com:Ikon-design/cube5.git <br>
-cp -r cube5/. . <br>
-rm -rf cube5 <br>
+mkdir cube-dev <br>
+cd cube-dev <br>
+git clone -b dev https://github.com/Ikon-design/cube5.git <br>
+cd cube5 <br>
 docker compose up -d <br>
-docker exec cube5-www-1 php /usr/local/bin/composer install <br>
+docker exec web php /usr/local/bin/composer require --dev phpunit/phpunit <br>
+docker exec web php /usr/local/bin/composer install <br>
+docker cp ./000-default.conf web:/etc/apache2/sites-available/ <br>
+docker restart web <br>
 
 <h3> Script Preprod : </h3>
 

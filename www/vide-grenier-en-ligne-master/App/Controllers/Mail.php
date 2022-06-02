@@ -58,7 +58,7 @@ function sendmail($s, $m, $em)
         //$mail->AltBody = 'Merci.';
 
         $mail->send();
-        header('Location: /product/2');
+        header('Location: /');
         echo 'Message has been sent';
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";

@@ -24,7 +24,7 @@ services:
         MYSQL_PASSWORD: test
         MYSQL_ROOT_PASSWORD: test
     volumes:
-        - ./www/vide-grenier-en-ligne-master/sql:/docker-entrypoint-initdb.d
+        - ./cube5/www/vide-grenier-en-ligne-master/sql:/docker-entrypoint-initdb.d
        # - ./persistent:/var/lib/mysql
     networks:
         - default

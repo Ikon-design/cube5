@@ -54,3 +54,16 @@ rm docker-compose.yml <br>
 rm dockerfile <br>
 rm script.sh <br>
 rm README.md <br>
+
+<h3> Script prod : </h3>
+mkdir cube-prod <br>
+cd cube-prod <br>
+git clone -b master https://github.com/Ikon-design/cube5.git <br>
+cd cube5 <br>
+docker compose up -d --build <br>
+rm -r www <br>
+rm 000-default.conf <br>
+rm docker-compose.yml <br>
+rm dockerfile <br>
+rm script.sh <br>
+rm README.md  <br>

@@ -161,13 +161,8 @@ class User extends \Core\Controller
                 setcookie('email',$_POST['email'],time()+365*24*3600,null,null,false,true);
                 setcookie('password',$_POST['password'],time()+365*24*3600,null,null,false,true);
             }
-
-            include('Mail.php');
-
-            $s = "Urgent";
-            $m = "Qqn s'est connecté sur votre compte";
-            $e = "proalexandreboyere@gmail.com";
-            sendmail($s, $m, $e);
+            
+            // Envoie un mail sendmail() dans le controller Mail trouver une boîte mail SMTP
 
             return true;
 
